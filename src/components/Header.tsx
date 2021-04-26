@@ -1,29 +1,30 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setChannel, setChannelVideos } from '../reducers/channelReducer';
 import './Header.sass';
 import axios from 'axios';
-import Context from './Context';
 
 const Header: React.FC = () => {
+	const dispatch = useDispatch();
 	const [userInput, setUserInput] = useState<string>();
-	//@ts-expect-error
-	const { setFoundChannels, foundChannels } = useContext(Context);
 
 	const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 		setUserInput(value);
 	};
 
-	const searchUsers = (searchStr: string) => {
-		axios
-			.get(`https://api.twitch.tv/kraken/users?login=${searchStr}`, { headers: { Accept: 'application/vnd.twitchtv.v5+json', 'client-id': 'wbmytr93xzw8zbg0p1izqyzzc5mbiz' } })
-			.then((response) => setFoundChannels(response.data));
+	const searchUsers = async () => {
+		await axios
+			.get(`https://api.twitch.tv/kraken/users?login=${userInput}`, { headers: { Accept: 'application/vnd.twitchtv.v5+json', 'client-id': 'wbmytr93xzw8zbg0p1izqyzzc5mbiz' } })
+			.then((response) => {
+				const user = response.data.users[0];
+				dispatch(setChannel(user));
+				axios
+					.get(`https://api.twitch.tv/kraken/channels/${user?._id}/videos?limit=100`, { headers: { Accept: 'application/vnd.twitchtv.v5+json', 'client-id': 'wbmytr93xzw8zbg0p1izqyzzc5mbiz' } })
+					.then((res) => dispatch(setChannelVideos(res.data)));
+			});
 	};
-	// console.log('channel', foundChannels);
-	useEffect(() => {
-		if (userInput) {
-			searchUsers(userInput);
-		}
-	}, [userInput]);
+
 	return (
 		<header className='header'>
 			<div className='header__search'>
@@ -31,7 +32,9 @@ const Header: React.FC = () => {
 					Введите название канала
 				</label>
 				<input type='text' className='header__search-input' onChange={inputHandler} />
-				<button className='header__search-btn'>Найти</button>
+				<button className='header__search-btn' onClick={searchUsers}>
+					Найти
+				</button>
 			</div>
 		</header>
 	);
