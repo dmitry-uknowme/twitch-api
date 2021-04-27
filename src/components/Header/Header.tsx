@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setChannel, setChannelVideos } from '../reducers/channelReducer';
+import { setChannel, setChannelVideos } from '../../reducers/channelReducer';
 import './Header.sass';
 import axios from 'axios';
 
@@ -36,17 +36,19 @@ const Header: React.FC = () => {
 
 	return (
 		<header className='header'>
-			<div className='header__search'>
-				<label htmlFor='header__search-input' className='header__search-label'>
-					Введите название канала
-				</label>
-				<input type='text' className='header__search-input' onChange={inputHandler} />
-				<button className='header__search-btn' onClick={searchUsers}>
-					Найти
-				</button>
-			</div>
-			<div className='header__favorite'>
-				Избранное <span className='header__favorite-count'>{favoriteVideosCount}</span>
+			<div className='header__container'>
+				<div className='header__search'>
+					<label htmlFor='header__search-input' className='header__search-label'>
+						Введите название канала
+					</label>
+					<input type='text' className='header__search-input' onChange={inputHandler} />
+					<button className='header__search-btn' onClick={searchUsers}>
+						Найти
+					</button>
+				</div>
+				<div className='header__favorite'>
+					Избранное <span className='header__favorite-count'>{favoriteVideosCount}</span>
+				</div>
 			</div>
 		</header>
 	);

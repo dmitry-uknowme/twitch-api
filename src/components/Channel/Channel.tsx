@@ -40,7 +40,7 @@ const Channel = () => {
 
 						{video.liked === true ? (
 							<>
-								<FavoriteIcon className='channel__videos-like _liked'></FavoriteIcon>
+								<FavoriteIcon className='channel__videos-like _liked' onClick={() => dispatch(likeVideo(id))}></FavoriteIcon>
 							</>
 						) : (
 							<FavoriteIcon className='channel__videos-like' onClick={() => dispatch(likeVideo(id))}></FavoriteIcon>

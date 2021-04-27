@@ -28,6 +28,8 @@ const channelReducer = (state = defaulState, action) => {
 				videos: [...state.channelVideos, action.payload],
 			};
 		case LIKE_VIDEO:
+			// console.log('now', state.videos[action.payload].liked, 'will be', !state.videos[action.payload].liked);
+			localStorage.setItem('favoriteVideos', JSON.stringify([...JSON.parse(localStorage.getItem('favoriteVideos')), state.videos[action.payload]]));
 			return {
 				...state,
 				videos: [
