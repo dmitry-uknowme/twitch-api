@@ -1,6 +1,7 @@
 const SET_CHANNEL = 'SET_CHANNEL';
 const SET_CHANNEL_VIDEOS = 'SET_CHANNEL_VIDEOS';
 const ADD_CHANNEL_VIDEOS = 'ADD_CHANNEL_VIDEOS';
+const LIKE_VIDEO = 'LIKE_VIDEO';
 
 const defaulState = {
 	data: {},
@@ -26,6 +27,17 @@ const channelReducer = (state = defaulState, action) => {
 				...state,
 				videos: [...state.channelVideos, action.payload],
 			};
+		case LIKE_VIDEO:
+			return {
+				...state,
+				videos: [
+					...state.videos.slice(0, action.payload),
+					Object.assign(state.videos[action.payload], {
+						liked: !state.videos[action.payload].liked,
+					}),
+					...state.videos.slice(action.payload + 1),
+				],
+			};
 
 		default:
 			return state;
@@ -35,5 +47,6 @@ const channelReducer = (state = defaulState, action) => {
 export const setChannel = (data) => ({ type: SET_CHANNEL, payload: data });
 export const setChannelVideos = (data) => ({ type: SET_CHANNEL_VIDEOS, payload: data });
 export const addChannelVideos = (data) => ({ type: ADD_CHANNEL_VIDEOS, payload: data });
+export const likeVideo = (data) => ({ type: LIKE_VIDEO, payload: data });
 
 export default channelReducer;

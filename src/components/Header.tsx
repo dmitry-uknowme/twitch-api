@@ -6,7 +6,10 @@ import axios from 'axios';
 
 const Header: React.FC = () => {
 	const dispatch = useDispatch();
+	//@ts-expect-error
+	const channelVideos = useSelector((state) => state.channel.videos);
 	const [userInput, setUserInput] = useState<string>();
+	const [favoriteVideosCount, setFavoriteVideosCount] = useState<any>(0);
 
 	const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
@@ -21,9 +24,15 @@ const Header: React.FC = () => {
 				dispatch(setChannel(user));
 				axios
 					.get(`https://api.twitch.tv/kraken/channels/${user?._id}/videos?limit=100`, { headers: { Accept: 'application/vnd.twitchtv.v5+json', 'client-id': 'wbmytr93xzw8zbg0p1izqyzzc5mbiz' } })
-					.then((res) => dispatch(setChannelVideos(res.data)));
+					.then((res) => dispatch(setChannelVideos(res.data.videos)));
 			});
 	};
+
+	useEffect(() => {
+		if (channelVideos) {
+			setFavoriteVideosCount(channelVideos.filter((video: any) => video.liked).length);
+		}
+	}, [channelVideos]);
 
 	return (
 		<header className='header'>
@@ -35,6 +44,9 @@ const Header: React.FC = () => {
 				<button className='header__search-btn' onClick={searchUsers}>
 					Найти
 				</button>
+			</div>
+			<div className='header__favorite'>
+				Избранное <span className='header__favorite-count'>{favoriteVideosCount}</span>
 			</div>
 		</header>
 	);
