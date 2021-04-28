@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-// import './App.css';
+import Head from 'next/head';
 import Header from '../components/Header/Header';
 import Channel from '../components/Channel/Channel';
 
-//@ts-expect-error
-const App: React.FC = ({ channel }) => {
-	// console.log(channel);
-
+const App: React.FC = () => {
 	return (
 		<div className='app'>
+			<Head>
+				<title>Twitch-search</title>t
+			</Head>
 			<Header />
 			<Channel />
 		</div>

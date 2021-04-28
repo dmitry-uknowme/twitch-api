@@ -1,8 +1,20 @@
 import React from 'react';
+import cn from 'classnames';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import { video__preview, video__overlay, video__name, video__views, video__game } from './VideoItem.module.sass';
+import { video__preview, video__overlay, video__name, video__views, video__game, video__like, _liked } from './VideoItem.module.sass';
+import { useAppContext } from '../../context/AppContext';
 
-const VideoItem = ({ video, parentStyle }) => {
+const VideoItem = ({ video, id, parentStyle }) => {
+	const { channelVideos, setChannelVideos } = useAppContext();
+	const likeVideoHanler = (id) => {
+		setChannelVideos((state) => [
+			...state.slice(0, id),
+			Object.assign(state[id], {
+				liked: !state[id].liked,
+			}),
+			...state.slice(id + 1),
+		]);
+	};
 	return (
 		<>
 			<a className={video__preview} href={video.url} target='_blank' style={{ background: `url(${video.preview.medium})` }}>
@@ -11,13 +23,7 @@ const VideoItem = ({ video, parentStyle }) => {
 				<div className={video__views}>{video.views} просмотров</div>
 				<div className={video__game}>{video.game}</div>
 			</a>
-			{video.liked === true ? (
-				<>
-					<FavoriteIcon className='channel__videos-like _liked' /* onClick={() => dispatch(likeVideo(id)) */></FavoriteIcon>
-				</>
-			) : (
-				<FavoriteIcon className='channel__videos-like' /* onClick={() => dispatch(likeVideo(id)) */></FavoriteIcon>
-			)}
+			<FavoriteIcon className={cn(video__like, { [_liked]: video.liked })} onClick={() => likeVideoHanler(id)}></FavoriteIcon>
 		</>
 	);
 };
