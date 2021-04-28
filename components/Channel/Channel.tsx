@@ -24,7 +24,7 @@ const Channel = () => {
 			<hr />
 			<div className={channel__videos}>
 				{channelVideos?.map((video: any, id: Number) => (
-					<VideoItem key={video._id} video={video} id={id} parentStyle='channel' />
+					<VideoItem key={video._id} video={video} id={id} />
 				))}
 			</div>
 		</main>

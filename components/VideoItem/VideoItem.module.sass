@@ -14,10 +14,20 @@
             transform: translateY(0)
         &:hover .video__game
             transform: translateX(0)
+        &:hover .video__play
+            transform: scale(1) translate(-50%,-50%)
         &:hover .video__like
             opacity: 1
         &:hover .video__overlay
             opacity: 1
+    &__play
+        transition: all 0.3s !important
+        font-size: 40px !important
+        fill: cyan !important
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: scale(0) translate(-50%,-50%)
     &__name
         color: #fff
         transition: all 0.5s
@@ -40,16 +50,16 @@
     &__like
         cursor: pointer
         // opacity: 0
-        transition: all 0.6s
-        color: blue
+        transition: all 0.6s !important
+        fill: blue !important
         // position: absolute
         // top: 50%
         // right: 2%
         // transform: translateY(-50%)
         &:hover
-            color: red
+            fill: red !important
     &__like._liked
-        color: red
+        fill: red !important
     &__overlay
         opacity: 0
         transition: all 0.2s
