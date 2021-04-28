@@ -1,10 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react';
+
 // import { useDispatch, useSelector } from 'react-redux';
 // import { setChannel, setChannelVideos } from '../../reducers/channelReducer';
 import './Header.module.sass';
 import axios from 'axios';
+import { useAppContext } from '../../context/AppContext';
+//@ts-expect-error
+const Header: React.FC = ({ state }) => {
+	const { channel, setChannel } = useAppContext();
 
-const Header: React.FC = () => {
+	// console.log(state);
 	// const dispatch = useDispatch();
 	// const channelVideos = useSelector((state) => state.channel.videos);
 	const [userInput, setUserInput] = useState<string>();
@@ -13,6 +18,11 @@ const Header: React.FC = () => {
 	const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 		setUserInput(value);
+	};
+
+	const searchUsers = async () => {
+		const response = await axios.get(`http://localhost:3000/api/channel/${userInput}`);
+		setChannel(response.data);
 	};
 
 	// const searchUsers = async () => {
@@ -41,7 +51,9 @@ const Header: React.FC = () => {
 						Введите название канала
 					</label>
 					<input type='text' className='header__search-input' onChange={inputHandler} />
-					<button className='header__search-btn' /* onClick={searchUsers} */>Найти</button>
+					<button className='header__search-btn' onClick={searchUsers}>
+						Найти
+					</button>
 				</div>
 				<div className='header__favorite'>
 					Избранное <span className='header__favorite-count'>{favoriteVideosCount}</span>

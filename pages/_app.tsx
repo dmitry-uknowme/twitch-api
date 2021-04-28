@@ -1,5 +1,11 @@
-const App = ({ Component, pageProps }) => {
-	return <Component {...pageProps} />;
-};
+import { AppWrapper } from '../context/AppContext';
 
-export default App;
+function Application({ Component, pageProps }) {
+	return (
+		<AppWrapper>
+			<Component {...pageProps} />
+		</AppWrapper>
+	);
+}
+
+export default Application;
