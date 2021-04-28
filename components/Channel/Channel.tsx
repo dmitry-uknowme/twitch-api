@@ -11,7 +11,7 @@ const Channel = () => {
 	return (
 		<main className={channel}>
 			<div className={channel__info}>
-				{channelData ? (
+				{channelData?.name ? (
 					<>
 						<img className={channel__logo} src={channelData?.logo}></img>
 						<h2>{channelData?.name}</h2>

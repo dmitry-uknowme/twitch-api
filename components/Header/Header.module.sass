@@ -1,5 +1,7 @@
 
 .header
+    padding: 10px
+    background: rgba(0,0,0,0.1)
     margin-top: 3rem
     &__container
         display: flex
@@ -7,3 +9,44 @@
         max-width: 900px
         margin: auto
     &__search
+        display: flex
+        align-items: center
+        &Label
+            margin-right: 2rem
+        &Input
+            color: #9d9e9d
+            background: #e5e5e5
+            outline: none
+            border: 2px solid #000
+            border-radius: 0.5em 0 0 0.5em
+            padding: 8px 10px
+            transition: all 0.5s
+            &:focus
+                color: #000
+                background: #fff
+                outline: none
+                border: 2px solid #772ce8
+            &::placeholder
+                color: #772ce8
+    &__search._active
+        border-bottom: 1px solid #772ce8
+        padding-bottom: 12px
+        &Btn
+            margin-top: 4px
+            cursor: pointer
+            fill: #e5e5e5 !important
+        &Btn._active
+            fill: #000 !important
+    &__favorite
+        cursor: pointer
+        margin: auto
+        position: relative
+        padding-left: 40px !important
+        border: 2px solid #772ce8
+        padding: 5px 10px
+        border-radius: 5px
+        color: #fff
+        background: lighten(#772ce8,25%)
+        &Icon
+            position: absolute
+            left: 4%

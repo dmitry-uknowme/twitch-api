@@ -1,18 +1,19 @@
 import React, { useEffect, useState, useContext } from 'react';
-
-import styles from './Header.module.sass';
-const headerStyle = styles.header;
-const headerContainerStyle = styles.header__container;
-
-import './Header.module.sass';
 import axios from 'axios';
 import { useAppContext } from '../../context/AppContext';
-//@ts-expect-error
-const Header: React.FC = ({ state }) => {
-	const { channelData, setChannelData, channelVideos, setChannelVideos } = useAppContext();
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import { header, header__container, header__search, header__searchInput, header__searchLabel, header__searchBtn, header__favorite, header__favoriteIcon, _active } from './Header.module.sass';
+import cn from 'classnames';
 
-	const [userInput, setUserInput] = useState<string>();
+import SearchIcon from '@material-ui/icons/Search';
+
+const Header: React.FC = () => {
+	const { channelData, setChannelData, channelVideos, setChannelVideos, favoriteVideos } = useAppContext();
+
+	const [userInput, setUserInput] = useState<string>('');
 	const [favoriteVideosCount, setFavoriteVideosCount] = useState<any>(0);
+
+	const isInputEmpty: boolean = userInput.trim() === '';
 
 	const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
@@ -20,6 +21,7 @@ const Header: React.FC = ({ state }) => {
 	};
 
 	const searchUser = async () => {
+		console.log('click');
 		await axios.get(`http://localhost:3000/api/channel/${userInput}`).then((response) => {
 			const user = response.data;
 
@@ -32,26 +34,19 @@ const Header: React.FC = ({ state }) => {
 		});
 	};
 
-	useEffect(() => {
-		if (channelVideos) {
-			setFavoriteVideosCount(channelVideos.filter((video: any) => video.liked).length);
-		}
-	}, [channelVideos]);
-
 	return (
-		<header className={headerStyle}>
-			<div className={headerContainerStyle}>
-				<div className='header__search'>
-					<label htmlFor='header__search-input' className='header__search-label'>
+		<header className={header}>
+			<div className={header__container}>
+				<div className={header__search}>
+					<label htmlFor='header__search-input' className={header__searchLabel}>
 						Введите название канала
 					</label>
-					<input type='text' className='header__search-input' onChange={inputHandler} />
-					<button className='header__search-btn' onClick={searchUser}>
-						Найти
-					</button>
+					<input type='text' className={header__searchInput} placeholder='Поиск' onChange={inputHandler} />
+
+					<SearchIcon className={cn(header__searchBtn, { [_active]: !isInputEmpty })} disabled={!isInputEmpty} onClick={searchUser}></SearchIcon>
 				</div>
-				<div className='header__favorite'>
-					Избранное <span className='header__favorite-count'>{favoriteVideosCount}</span>
+				<div className={header__favorite}>
+					<FavoriteIcon className={header__favoriteIcon}></FavoriteIcon> Избранное <span className='header__favorite-count'>{favoriteVideos.length}</span>
 				</div>
 			</div>
 		</header>
