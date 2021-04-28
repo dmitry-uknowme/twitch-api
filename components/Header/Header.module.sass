@@ -9,6 +9,8 @@
         max-width: 900px
         margin: auto
     &__search
+        cursor: pointer
+        transition: all 0.5s
         display: flex
         align-items: center
         &Label
@@ -28,16 +30,19 @@
                 border: 2px solid #772ce8
             &::placeholder
                 color: #772ce8
-    &__search._active
-        border-bottom: 1px solid #772ce8
-        padding-bottom: 12px
         &Btn
             margin-top: 4px
             cursor: pointer
             fill: #e5e5e5 !important
         &Btn._active
             fill: #000 !important
+    &__search._active
+        border-bottom: 3px solid #772ce8
+        padding-bottom: 15px
     &__favorite
+        transition: all 0.5s
+        display: flex
+        align-items: center
         cursor: pointer
         margin: auto
         position: relative
@@ -50,3 +55,11 @@
         &Icon
             position: absolute
             left: 4%
+        &Count
+            margin-left: 5px
+            font-weight: 700
+    &__favorite._active
+        border-bottom: 3px solid #772ce8
+        padding-bottom: 15px
+    &__favorite._active .header__favoriteIcon
+        fill: darkviolet !important

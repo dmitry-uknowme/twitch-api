@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import Head from 'next/head';
 import Header from '../components/Header/Header';
 import Channel from '../components/Channel/Channel';
+import Favorites from '../components/Favorites/Favorites';
 import { useAppContext } from '../context/AppContext';
 
 const App: React.FC = () => {
-	const { favoriteVideos, setFavoriteVideos } = useAppContext();
+	const { favoriteVideos, setFavoriteVideos, activeTab, setActiveTab } = useAppContext();
 	useEffect(() => {
 		const ls = localStorage;
 		const favoriteVideosLS = JSON.parse(ls.getItem('favoriteVideos'));
@@ -22,7 +23,7 @@ const App: React.FC = () => {
 				<title>Twitch-search</title>t
 			</Head>
 			<Header />
-			<Channel />
+			{activeTab === 'channel' ? <Channel /> : activeTab === 'favorites' ? <Favorites /> : ''}
 		</div>
 	);
 };
