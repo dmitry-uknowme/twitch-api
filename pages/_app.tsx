@@ -1,6 +1,7 @@
 import { AppWrapper } from '../context/AppContext';
+import '../styles/index.css';
 
-function Application({ Component, pageProps }) {
+function App({ Component, pageProps }) {
 	return (
 		<AppWrapper>
 			<Component {...pageProps} />
@@ -8,4 +9,4 @@ function Application({ Component, pageProps }) {
 	);
 }
 
-export default Application;
+export default App;

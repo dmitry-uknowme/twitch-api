@@ -3,10 +3,13 @@ import { useState, createContext, useContext } from 'react';
 const AppContext = createContext();
 
 export function AppWrapper({ children }) {
-	const [channel, setChannel] = useState<Object>({ name: 'bvuster' });
+	const [channelData, setChannelData] = useState<object>();
+	const [channelVideos, setChannelVideos] = useState<object[]>();
 	let sharedState = {
-		channel,
-		setChannel,
+		channelData,
+		setChannelData,
+		channelVideos,
+		setChannelVideos,
 	};
 
 	return <AppContext.Provider value={sharedState}>{children}</AppContext.Provider>;

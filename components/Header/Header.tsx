@@ -1,17 +1,16 @@
 import React, { useEffect, useState, useContext } from 'react';
 
-// import { useDispatch, useSelector } from 'react-redux';
-// import { setChannel, setChannelVideos } from '../../reducers/channelReducer';
+import styles from './Header.module.sass';
+const headerStyle = styles.header;
+const headerContainerStyle = styles.header__container;
+
 import './Header.module.sass';
 import axios from 'axios';
 import { useAppContext } from '../../context/AppContext';
 //@ts-expect-error
 const Header: React.FC = ({ state }) => {
-	const { channel, setChannel } = useAppContext();
+	const { channelData, setChannelData, channelVideos, setChannelVideos } = useAppContext();
 
-	// console.log(state);
-	// const dispatch = useDispatch();
-	// const channelVideos = useSelector((state) => state.channel.videos);
 	const [userInput, setUserInput] = useState<string>();
 	const [favoriteVideosCount, setFavoriteVideosCount] = useState<any>(0);
 
@@ -21,8 +20,16 @@ const Header: React.FC = ({ state }) => {
 	};
 
 	const searchUsers = async () => {
-		const response = await axios.get(`http://localhost:3000/api/channel/${userInput}`);
-		setChannel(response.data);
+		await axios.get(`http://localhost:3000/api/channel/${userInput}`).then((response) => {
+			const user = response.data;
+
+			setChannelData(user);
+			axios.get(`http://localhost:3000/api/videos/${user?._id}`).then((response) => {
+				const videos = response.data.videos;
+
+				setChannelVideos(videos);
+			});
+		});
 	};
 
 	// const searchUsers = async () => {
@@ -44,8 +51,8 @@ const Header: React.FC = ({ state }) => {
 	// }, [channelVideos]);
 
 	return (
-		<header className='header'>
-			<div className='header__container'>
+		<header className={headerStyle}>
+			<div className={headerContainerStyle}>
 				<div className='header__search'>
 					<label htmlFor='header__search-input' className='header__search-label'>
 						Введите название канала

@@ -9,21 +9,10 @@ const App: React.FC = ({ channel }) => {
 
 	return (
 		<div className='app'>
-			//@ts-expect-error
-			<Header state={{ channel }} />
+			<Header />
 			<Channel />
 		</div>
 	);
-};
-
-export const getStaticProps = async (context) => {
-	// console.log('ctx', context);
-	const res = await fetch('http://localhost:3000/api/channel/buster');
-	const channel = await res.json();
-
-	return {
-		props: { channel },
-	};
 };
 
 export default App;
