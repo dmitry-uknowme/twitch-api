@@ -26,6 +26,12 @@ const Header: React.FC = () => {
 
 	const isInputEmpty: boolean = userInput.trim() === '';
 
+	const enterKeyHandler = (e: React.KeyboardEvent) => {
+		if (e.key === 'Enter' && !isInputEmpty) {
+			searchUser();
+		}
+	};
+
 	const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 		setUserInput(value);
@@ -64,7 +70,7 @@ const Header: React.FC = () => {
 					<label htmlFor='header__search-input' className={header__searchLabel}>
 						Введите название канала
 					</label>
-					<input type='text' className={header__searchInput} placeholder='Поиск' onChange={inputHandler} />
+					<input type='text' className={header__searchInput} placeholder='Поиск' onChange={inputHandler} onKeyPress={enterKeyHandler} />
 					<SearchIcon className={cn(header__searchBtn, { [_active]: !isInputEmpty })} disabled={!isInputEmpty} onClick={searchUser}></SearchIcon>
 				</div>
 				<div className={cn(header__favorite, { [_active]: activeTab === 'favorites' })} onClick={() => setActiveTab('favorites')}>

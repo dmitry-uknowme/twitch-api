@@ -45,7 +45,7 @@ const VideoItem: React.FC<IVideoProps> = ({ video, id, parent }) => {
 				});
 			}
 
-			if (favoriteVideos[id].channel.name === channelData.name) {
+			if (favoriteVideos[id].channel.name === channelData?.name) {
 				const currId = channelVideos.findIndex((vid: IVideo) => vid === favoriteVideos[id]);
 				await setChannelVideos((state: IVideo[]) => {
 					const currId = state.findIndex((vid: IVideo) => vid === favoriteVideos[id]);

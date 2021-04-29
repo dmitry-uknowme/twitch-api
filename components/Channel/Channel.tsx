@@ -10,7 +10,7 @@ export interface IChannelData {
 	bio: string;
 }
 
-const Channel:React.FC = () => {
+const Channel: React.FC = () => {
 	const { channelData, setChannelData, channelVideos, setChannelVideos } = useAppContext();
 
 	return (
@@ -28,11 +28,12 @@ const Channel:React.FC = () => {
 					'Введите запрос'
 				)}
 			</div>
-			<hr />
 			<div className={channel__videos}>
-				{channelVideos?.map((video: IVideo, id: number) => (
-					<VideoItem key={video._id} video={video} parent='channel' id={id} />
-				))}
+				{channelVideos.length > 0 ? (
+					channelVideos.map((video: IVideo, id: number) => <VideoItem key={video._id} video={video} parent='channel' id={id} />)
+				) : (
+					<div>Не найдены видео на канале {channelData.name}</div>
+				)}
 			</div>
 		</main>
 	);

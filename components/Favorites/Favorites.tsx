@@ -10,7 +10,6 @@ const Favorites: React.FC = () => {
 	return (
 		<main className={favorites}>
 			<div className={favorites__info}>Избранное</div>
-			<hr />
 			<div className={favorites__videos}>
 				{favoriteVideos?.map((video: IVideo, id: number) => (
 					<VideoItem key={video._id} video={video} parent='favorites' id={id} />
