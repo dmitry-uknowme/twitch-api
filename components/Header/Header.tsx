@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useAppContext } from '../../context/AppContext';
 import TabBarNav from '../TabBar/TabBarNav';
@@ -51,7 +51,7 @@ const Header: React.FC = () => {
 	};
 
 	const searchUser = async () => {
-		await axios.get(`http://localhost:3000/api/channel/${userInput}`).then((response) => {
+		await axios.get(`http://localhost:3000/api/channel/${userInput.toLowerCase().trim()}`).then((response) => {
 			const user = response.data;
 
 			setChannelData(user);
@@ -75,7 +75,7 @@ const Header: React.FC = () => {
 				</div>
 				<div className={cn(header__favorite, { [_active]: activeTab === 'favorites' })} onClick={() => setActiveTab('favorites')}>
 					<FavoriteIcon className={header__favoriteIcon}></FavoriteIcon> Избранное
-					<span className={header__favoriteCount}>{favoriteVideos.length}</span>
+					<span className={header__favoriteCount}>{favoriteVideos.length > 0 ? favoriteVideos.length : ''}</span>
 				</div>
 			</div>
 		</header>

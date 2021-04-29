@@ -31,6 +31,8 @@
             &::placeholder
                 color: #772ce8
         &Btn
+            position: relative
+            z-index: 100
             margin-top: 4px
             cursor: pointer
             fill: #e5e5e5 !important
@@ -68,11 +70,22 @@
 @media screen and ( max-width: 576px )
     .header
         &__search
+            width: 35%
+            position: relative
             margin: auto
             &Label
                 display: none
             &Input
+                width: 90%
                 padding: 5px
+            &Btn
+                z-index: 100
+                // left: 50%
+                // top: 22%
+                position: absolute
+                right: -26%
+                top: 287%
+                font-size: 35px
         &__favorite
             padding: 5px
             font-size: 13px

@@ -29,11 +29,9 @@ const Channel: React.FC = () => {
 				)}
 			</div>
 			<div className={channel__videos}>
-				{channelVideos.length > 0 ? (
-					channelVideos.map((video: IVideo, id: number) => <VideoItem key={video._id} video={video} parent='channel' id={id} />)
-				) : (
-					<div>Не найдены видео на канале {channelData.name}</div>
-				)}
+				{channelVideos?.map((video: IVideo, id: number) => (
+					<VideoItem key={video._id} video={video} parent='channel' id={id} />
+				))}
 			</div>
 		</main>
 	);
