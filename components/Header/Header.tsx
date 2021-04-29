@@ -30,16 +30,29 @@ const Header: React.FC = () => {
 		setUserInput(value);
 	};
 
+	const markLiked = (a, b) => {
+		let matches = a;
+
+		for (var i = 0; i < a.length; i++) {
+			for (var e = 0; e < b.length; e++) {
+				if (a[i]._id === b[e]._id) {
+					a[i].liked = true;
+				}
+			}
+		}
+		return matches;
+	};
+
 	const searchUser = async () => {
-		console.log('click');
 		await axios.get(`http://localhost:3000/api/channel/${userInput}`).then((response) => {
 			const user = response.data;
 
 			setChannelData(user);
 			axios.get(`http://localhost:3000/api/videos/${user?._id}`).then((response) => {
 				const videos = response.data.videos;
-
-				setChannelVideos(videos);
+				setChannelVideos(() => {
+					return markLiked(videos, favoriteVideos);
+				});
 			});
 		});
 	};

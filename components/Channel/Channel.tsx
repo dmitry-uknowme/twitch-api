@@ -14,17 +14,19 @@ const Channel = () => {
 				{channelData?.name ? (
 					<>
 						<img className={channel__logo} src={channelData?.logo}></img>
-						<h2>{channelData?.name}</h2>
-						<p>{channelData?.bio}</p>
+						<div style={{ display: 'flex', flexDirection: 'column' }}>
+							<h2>{channelData?.name}</h2>
+							<p>{channelData?.bio}</p>
+						</div>
 					</>
 				) : (
-					'Пользователь не найден'
+					'Введите запрос'
 				)}
 			</div>
 			<hr />
 			<div className={channel__videos}>
 				{channelVideos?.map((video: any, id: Number) => (
-					<VideoItem key={video._id} video={video} id={id} />
+					<VideoItem key={video._id} video={video} parent='channel' id={id} />
 				))}
 			</div>
 		</main>
