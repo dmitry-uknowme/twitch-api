@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-
+//@ts-expect-error //need fix
 import { channel, channel__info, channel__logo, channel__videos } from './Channel.module.sass';
 import { useAppContext } from '../../context/AppContext';
-import VideoItem from '../VideoItem/VideoItem';
+import VideoItem, { IVideo } from '../VideoItem/VideoItem';
 
-const Channel = () => {
-	//@ts-expect-error
+export interface IChannelData {
+	name: string;
+	logo: string;
+	bio: string;
+}
+
+const Channel:React.FC = () => {
 	const { channelData, setChannelData, channelVideos, setChannelVideos } = useAppContext();
 
 	return (
@@ -25,7 +30,7 @@ const Channel = () => {
 			</div>
 			<hr />
 			<div className={channel__videos}>
-				{channelVideos?.map((video: any, id: Number) => (
+				{channelVideos?.map((video: IVideo, id: number) => (
 					<VideoItem key={video._id} video={video} parent='channel' id={id} />
 				))}
 			</div>

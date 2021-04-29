@@ -4,6 +4,7 @@ import { useAppContext } from '../../context/AppContext';
 import TabBarNav from '../TabBar/TabBarNav';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import SearchIcon from '@material-ui/icons/Search';
+//@ts-expect-error //need fix
 import {
 	header,
 	header__container,
@@ -56,7 +57,6 @@ const Header: React.FC = () => {
 			});
 		});
 	};
-
 	return (
 		<header className={header}>
 			<div className={header__container}>
