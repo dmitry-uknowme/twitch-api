@@ -1,4 +1,4 @@
-# Test task junior front
+# Test task for junior front-end developer vacancy
 
 ## Установка зависимостей приложения
 
