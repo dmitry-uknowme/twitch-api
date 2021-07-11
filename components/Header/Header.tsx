@@ -51,11 +51,11 @@ const Header: React.FC = () => {
 	};
 
 	const searchUser = async () => {
-		await axios.get(`http://localhost:3000/api/channel/${userInput.toLowerCase().trim()}`).then((response) => {
+		await axios.get(`api/channel/${userInput.toLowerCase().trim()}`).then((response) => {
 			const user = response.data;
 
 			setChannelData(user);
-			axios.get(`http://localhost:3000/api/videos/${user?._id}`).then((response) => {
+			axios.get(`api/videos/${user?._id}`).then((response) => {
 				const videos = response.data.videos;
 				setChannelVideos(() => {
 					return markLiked(videos, favoriteVideos);
