@@ -27,8 +27,9 @@
 		"web-vitals": "^1.0.1"
 	},
 	"scripts": {
-		"start": "next dev",
-		"build": "next build && next start"
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start"
 	},
 	"eslintConfig": {
 		"extends": [
